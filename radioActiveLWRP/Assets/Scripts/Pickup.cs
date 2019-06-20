@@ -4,10 +4,18 @@ public class Pickup : MonoBehaviour, IInteractable
 {
     float dropDistance = 2.0f;
     Rigidbody rb;
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _grabEvent;
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _placeEvent;
+    FMOD.Studio.EventInstance _placeInstance;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+       // _placeInstance = FMODUnity.RuntimeManager.CreateInstance(_placeEvent);
     }
 
     public void Interact(Interactor interactor)
@@ -23,6 +31,7 @@ public class Pickup : MonoBehaviour, IInteractable
         rb.isKinematic = true;
         transform.parent = interactor.transform;
         transform.SetPositionAndRotation(interactor.transform.position, interactor.transform.rotation);
+        FMODUnity.RuntimeManager.PlayOneShot(_grabEvent);
     }
 
     void DetachFromInteractor(Interactor interactor)
@@ -32,5 +41,13 @@ public class Pickup : MonoBehaviour, IInteractable
         transform.position = interactor.transform.parent.TransformPoint(Vector3.forward * dropDistance);
         transform.rotation = Quaternion.identity;
         interactor.OnInteractionFinished();
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.tag == "Corruptable")
+        {
+            FMODUnity.RuntimeManager.PlayOneShotAttached(_placeEvent, this.gameObject);
+        }
     }
 }
