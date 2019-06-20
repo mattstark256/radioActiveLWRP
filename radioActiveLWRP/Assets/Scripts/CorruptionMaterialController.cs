@@ -8,16 +8,36 @@ public class CorruptionMaterialController : MonoBehaviour
     private float borderFraction = 0.5f;
     [SerializeField]
     private float maxBorderWidth = 0.3f;
-
-    //[SerializeField]
-    private List<MeshRenderer> meshRenderers = new List<MeshRenderer>();
-
     [SerializeField]
     private Material corruptionMaterial;
-
     
+    private List<MeshRenderer> meshRenderers = new List<MeshRenderer>();
+
+    private Vector3 corruptionCentre;
+    private float corruptionRadius;
+
+
+    private void Awake()
+    {
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Corruptable"))
+        {
+            MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
+            if (meshRenderer != null)
+            {
+                meshRenderer.material = corruptionMaterial;
+                meshRenderers.Add(meshRenderer);
+
+            }
+        }
+
+        Debug.Log(meshRenderers.Count + " corruption meshes found");
+    }
+
+
     public void SetRadius(float newRadius)
     {
+        corruptionRadius = newRadius;
+
         float borderWidth = newRadius * borderFraction;
         if (borderWidth > maxBorderWidth) borderWidth = maxBorderWidth;
 
@@ -31,6 +51,7 @@ public class CorruptionMaterialController : MonoBehaviour
 
     public void SetCentre(Vector3 newCentre)
     {
+        corruptionCentre = newCentre;
         foreach (MeshRenderer meshRenderer in meshRenderers)
         {
             meshRenderer.material.SetVector("Vector3_84CC7E50", newCentre);
@@ -38,19 +59,8 @@ public class CorruptionMaterialController : MonoBehaviour
     }
 
 
-    private void Awake()
+    public bool PointIsInsideCorruption(Vector3 point)
     {
-        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Corruptable"))
-            {
-            MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
-            if (meshRenderer!=null)
-            {
-                meshRenderer.material = corruptionMaterial;
-                meshRenderers.Add(meshRenderer);
-
-            }
-        }
-
-        Debug.Log(meshRenderers.Count + " corruption meshes found");
+        return Vector3.Distance(point, corruptionCentre) < corruptionRadius;
     }
 }
