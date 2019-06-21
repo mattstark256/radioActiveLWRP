@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceef75ad2eb3853418e1f20dfd51d678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  borderFraction: 0.5
+  borderFraction: 0.7
   maxBorderWidth: 5
   material: {fileID: 2100000, guid: 4cfb25ec82c18ac4ab49b2d8379c9539, type: 2}
 --- !u!114 &733268206351121880
