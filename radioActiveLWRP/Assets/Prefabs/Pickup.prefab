@@ -122,3 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c605a4438d2edbd42bb0b9e0b3309562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _grabEvent: event:/playGrab
+  _placeEvent: event:/playPlace

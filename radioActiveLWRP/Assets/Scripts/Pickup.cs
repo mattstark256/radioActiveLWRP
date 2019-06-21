@@ -45,9 +45,6 @@ public class Pickup : MonoBehaviour, IInteractable
 
     void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == "Corruptable")
-        {
             FMODUnity.RuntimeManager.PlayOneShotAttached(_placeEvent, this.gameObject);
-        }
     }
 }

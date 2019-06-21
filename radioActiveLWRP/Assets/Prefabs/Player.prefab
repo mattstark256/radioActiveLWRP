@@ -216,6 +216,8 @@ GameObject:
   - component: {fileID: 3260279200882676791}
   - component: {fileID: 3260279200882676808}
   - component: {fileID: 5465101631380054737}
+  - component: {fileID: 2615535883218307994}
+  - component: {fileID: 7319237229632985350}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -329,3 +331,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 58b578e623c35c84780298136e8eea6b, type: 2}
+--- !u!114 &2615535883218307994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260279200882676810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3565aae91c02ec4887ec94ff035f587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputFootsteps: event:/playFootsteps
+  _jumpEvent: event:/playJump
+  _landEvent: event:/playLanding
+  walkingSpeed: 0.3
+--- !u!114 &7319237229632985350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260279200882676810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
