@@ -15,6 +15,22 @@ public class Corruption : MonoBehaviour
 
     private bool isUnstoppable = false;
 
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _corruptionMusic;
+    FMOD.Studio.EventInstance _corruptionEvent;
+    FMOD.Studio.ParameterInstance volumeParameter;
+
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _spawnEvent;
+
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _clearEvent;
+
+    private float _volumeValue;
+
 
     private void Awake()
     {
@@ -24,8 +40,15 @@ public class Corruption : MonoBehaviour
         {
             particleSystem.Stop();
         }
+        _corruptionEvent = FMODUnity.RuntimeManager.CreateInstance(_corruptionMusic);
+        _corruptionEvent.start();
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(_corruptionEvent, this.gameObject.transform, GetComponent<Rigidbody>());
+        _corruptionEvent.getParameter("Volume", out volumeParameter);
     }
-
+    void Update()
+    {
+        volumeParameter.setValue(_volumeValue);
+    }
 
     public void ActivateCorruption()
     {
@@ -34,6 +57,8 @@ public class Corruption : MonoBehaviour
         {
             particleSystem.Play();
         }
+        FMODUnity.RuntimeManager.PlayOneShotAttached(_spawnEvent, this.gameObject);
+        _volumeValue = 1.0f;
     }
 
 
@@ -45,6 +70,8 @@ public class Corruption : MonoBehaviour
         {
             particleSystem.Stop();
         }
+        FMODUnity.RuntimeManager.PlayOneShotAttached(_clearEvent, this.gameObject);
+        _volumeValue = 0.0f;
     }
 
 

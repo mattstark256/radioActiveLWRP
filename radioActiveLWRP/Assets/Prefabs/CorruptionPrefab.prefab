@@ -19074,3 +19074,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radioTag: 
+  _corruptionMusic: event:/playKeys_Corrupt
+  _spawnEvent: event:/playCorruption_Spawn
+  _clearEvent: event:/playCorruption_Clear

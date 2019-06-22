@@ -9,6 +9,8 @@ public class RadioAudio : MonoBehaviour
     private string radioMusic;
     FMOD.Studio.EventInstance radioEvent;
     FMOD.Studio.ParameterInstance placedParameter;
+
+    private float placedValue;
     
     void Awake()
     {
@@ -18,17 +20,21 @@ public class RadioAudio : MonoBehaviour
         radioEvent.getParameter("Placed", out placedParameter);
     }
 
+    void Update()
+    {
+        placedParameter.setValue(placedValue);
+    }
     
     // This is called when the radio is placed at the correct corruption location.
     public void ChangeMusic()
     {
-        placedParameter.setValue(1.0f);
+        placedValue = 1.0f;
     }
 
 
     // This is called once the radio has finished destroying the corruption.
     public void RevertMusic()
     {
-        placedParameter.setValue(0.0f);
+        placedValue = 0.0f;
     }
 }
