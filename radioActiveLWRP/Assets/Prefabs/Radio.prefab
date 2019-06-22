@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd09a26459e766348b98188f97d4b117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _respawnEvent: event:/playRadioRespawn
 --- !u!114 &3808263390995127539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951c2746d907471418e60df839c7d963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radioTag: 
 --- !u!1001 &2551646115792629276
 PrefabInstance:
   m_ObjectHideFlags: 0

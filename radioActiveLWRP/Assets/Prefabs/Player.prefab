@@ -348,6 +348,7 @@ MonoBehaviour:
   _jumpEvent: event:/playJump
   _landEvent: event:/playLanding
   walkingSpeed: 0.3
+  _corruptionController: {fileID: 0}
 --- !u!114 &1342836528292129290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd09a26459e766348b98188f97d4b117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _respawnEvent: event:/playPlayerRespawn
 --- !u!114 &7319237229632985350
 MonoBehaviour:
   m_ObjectHideFlags: 0

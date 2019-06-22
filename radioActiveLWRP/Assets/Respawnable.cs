@@ -7,6 +7,10 @@ public class Respawnable : MonoBehaviour
     private Vector3 respawnPoint;
     private Quaternion respawnRotation;
 
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _respawnEvent;
+
     public void SetRespawnPoint(Vector3 _respawnPoint) { respawnPoint = _respawnPoint; }
 
 
@@ -29,6 +33,7 @@ public class Respawnable : MonoBehaviour
     public void Respawn()
     {
         Debug.Log("respawning");
+        FMODUnity.RuntimeManager.PlayOneShotAttached(_respawnEvent, this.gameObject);
 
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null) {
