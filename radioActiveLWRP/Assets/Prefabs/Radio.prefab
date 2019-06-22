@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5663234021467894436}
   - component: {fileID: -9091771769091511134}
   - component: {fileID: 3808263390995127539}
+  - component: {fileID: 8027031995902114668}
   m_Layer: 0
   m_Name: Radio
   m_TagString: Untagged
@@ -112,6 +113,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce88cf5f8ffe1f46aec6bc02c9a023e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radioMusic: 
+--- !u!114 &8027031995902114668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5870202446621802165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951c2746d907471418e60df839c7d963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2551646115792629276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119,11 +133,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5870202446621802161}
     m_Modifications:
-    - target: {fileID: 8750619394182930103, guid: 100eed430bd35e849993e23b0a56c994,
-        type: 3}
-      propertyPath: m_Name
-      value: Radio GFX
-      objectReference: {fileID: 0}
     - target: {fileID: 1791679975799359328, guid: 100eed430bd35e849993e23b0a56c994,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -193,6 +202,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750619394182930103, guid: 100eed430bd35e849993e23b0a56c994,
+        type: 3}
+      propertyPath: m_Name
+      value: Radio GFX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 100eed430bd35e849993e23b0a56c994, type: 3}

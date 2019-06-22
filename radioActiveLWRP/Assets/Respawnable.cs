@@ -26,7 +26,7 @@ public class Respawnable : MonoBehaviour
     }
 
 
-    private void Respawn()
+    public void Respawn()
     {
         Debug.Log("respawning");
 

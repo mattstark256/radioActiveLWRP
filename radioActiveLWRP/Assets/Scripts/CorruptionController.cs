@@ -69,7 +69,7 @@ public class CorruptionController : MonoBehaviour
 
             float f2 = f / (1 - f) - f;
 
-            SetRadius(radiusAtGameOver * (f + f2 * 0.1f));
+            SetRadius(radiusAtGameOver * (f + f2 * 0.01f));
 
             yield return null;
         }

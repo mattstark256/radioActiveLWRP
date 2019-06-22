@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2944481166371883346}
   - component: {fileID: 3074633028545211676}
   - component: {fileID: 8101282865425490553}
-  - component: {fileID: 733268206351121880}
   m_Layer: 0
   m_Name: Corruption Controller
   m_TagString: Untagged
@@ -60,20 +59,3 @@ MonoBehaviour:
   borderFraction: 0.7
   maxBorderWidth: 5
   material: {fileID: 2100000, guid: 4cfb25ec82c18ac4ab49b2d8379c9539, type: 2}
---- !u!114 &733268206351121880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2944481166371883351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fbbf5d110494b94c99a8ed865ddf0c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  corruption: {fileID: 3074633028545211676}
-  radiusRange: {x: 0, y: 20}
-  centre: {x: 0, y: 0, z: 0}
-  duration: 10
-  corruptionCentreTransform: {fileID: 0}
