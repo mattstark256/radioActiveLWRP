@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c5a8c5c182bd343aa08500f47822c2, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  lookSmoothing: 0.25
+  lookSmoothing: 1
   lookSpeed: 2
   gravity: 21.1
   jumpSpeed: 7.8
-  moveSpeed: 10
+  moveSpeed: 7

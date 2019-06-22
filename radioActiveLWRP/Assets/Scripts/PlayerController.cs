@@ -18,34 +18,46 @@ public class PlayerController : MonoBehaviour
         cameraComponent = GetComponentInChildren<Camera>();
     }
 
+
     void Update()
     {
-        if(playerData.inputEnabled)
+        if (playerData.inputEnabled)
         {
             Look();
+        }
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (playerData.inputEnabled)
+        {
             Move();
         }
     }
 
+
     void Look()
     {
         // Mouse player turning
-        float lookX = Input.GetAxis("Mouse X") * playerData.lookSpeed;
+        float lookX = Input.GetAxisRaw("Mouse X") * playerData.lookSpeed;
         smoothLookX = Mathf.Lerp(smoothLookX, lookX, playerData.lookSmoothing);
         transform.Rotate(0, smoothLookX, 0);
 
         // Mouse camera pitch
-        lookY -= Input.GetAxis("Mouse Y") * playerData.lookSpeed;
+        lookY -= Input.GetAxisRaw("Mouse Y") * playerData.lookSpeed;
         smoothLookY = Mathf.Lerp(smoothLookY, lookY, playerData.lookSmoothing);
         smoothLookY = Mathf.Clamp(smoothLookY, -90, 90);
         cameraComponent.transform.localRotation = Quaternion.Euler(smoothLookY, 0, 0);
     }
 
+
     void Move()
     {
+
         if (characterController.isGrounded)
         {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+            moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= playerData.moveSpeed;
 
