@@ -17,6 +17,19 @@ public class AudioController : MonoBehaviour
     private string _ambienceSound;
     FMOD.Studio.EventInstance ambienceEvent;
 
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string voSound1;
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string voSound2;
+    [SerializeField]
+    private GameObject _speakerObject;
+    [SerializeField]
+    private float _waitTime;
+
+    private bool _voPlayed = false;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -30,11 +43,20 @@ public class AudioController : MonoBehaviour
 
         ambienceEvent = FMODUnity.RuntimeManager.CreateInstance(_ambienceSound);
         ambienceEvent.start();
+        if(_speakerObject != null)
+        {
+            FMODUnity.RuntimeManager.PlayOneShotAttached(voSound1, _speakerObject);
+            StartCoroutine(WaitForVO());
+        }
+
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    IEnumerator WaitForVO()
     {
-        
+        //Debug.Log("Called wait");
+        yield return new WaitForSeconds(_waitTime);
+        FMODUnity.RuntimeManager.PlayOneShotAttached(voSound2, _speakerObject);
     }
 }
