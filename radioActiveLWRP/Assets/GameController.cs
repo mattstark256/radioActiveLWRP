@@ -10,8 +10,13 @@ public class GameController : MonoBehaviour
     private PlayerController playerController;
     [SerializeField]
     private Corruption tutorialCorruption;
+
     [SerializeField]
-    private Corruption corruptions;
+    private List<Corruption> corruptions;
+    private List<Corruption> shuffledCorruptions = new List<Corruption>();
+    [SerializeField]
+    private List<Transform> corruptionLocations;
+    private List<Transform> shuffledCorruptionLocations = new List<Transform>();
 
     [SerializeField]
     private Canvas canvas;
@@ -23,6 +28,8 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        ShuffleLists();
+
         StartCoroutine(GameCoroutine());
     }   
 
@@ -53,11 +60,40 @@ public class GameController : MonoBehaviour
             else if (!tutorialCorruption.IsActivated())
             {
                 corruptionController.Dissappear(2);
-                yield break;
+                break;
             }
 
             yield return null;
         }
+
+
+        for (int i = 0; i < shuffledCorruptions.Count; i++)
+        {
+            Corruption corruption = shuffledCorruptions[i];
+            corruption.transform.position = shuffledCorruptionLocations[i].position;
+            corruption.ActivateCorruption();
+            corruptionController.ExpandFromPoint(corruption.transform.position, 60, 50);
+
+            // Wait until game over or radio delivered
+            while (true)
+            {
+                if (corruptionController.GameIsOver())
+                {
+                    corruption.MakeUnstoppable();
+                    GameOver();
+                    yield break;
+                }
+                else if (!corruption.IsActivated())
+                {
+                    corruptionController.Dissappear(2);
+                    break;
+                }
+
+                yield return null;
+            }
+        }
+
+        Debug.Log("you win!");
     }
 
 
@@ -68,4 +104,21 @@ public class GameController : MonoBehaviour
         Debug.Log("game over!");
     }
 
+
+    private void ShuffleLists()
+    {
+        while (corruptions.Count>0)
+        {
+            int i = Random.Range(0, corruptions.Count);
+            shuffledCorruptions.Add(corruptions[i]);
+            corruptions.RemoveAt(i);
+        }
+
+        for (int i = 0; i < shuffledCorruptions.Count; i++)
+        {
+            int j = Random.Range(0, corruptionLocations.Count);
+            shuffledCorruptionLocations.Add(corruptionLocations[j]);
+            corruptionLocations.RemoveAt(j);
+        }
+    }
 }
