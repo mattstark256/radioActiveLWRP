@@ -5,15 +5,13 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField]
-    private float timeBeforeFirstCorruption = 5f;
-
-
-    [SerializeField]
     private CorruptionController corruptionController;
     [SerializeField]
     private PlayerController playerController;
     [SerializeField]
     private Corruption tutorialCorruption;
+    [SerializeField]
+    private AudioController audioController;
 
     [SerializeField]
     private List<Corruption> corruptions;
@@ -28,6 +26,8 @@ public class GameController : MonoBehaviour
     private GameObject tutorialPanelPrefab;
     [SerializeField]
     private GameObject gameOverPanelPrefab;
+    [SerializeField]
+    private GameObject winPanelPrefab;
     [SerializeField]
     private GameObject menuPrefab;
     private GameObject menu;
@@ -79,7 +79,11 @@ public class GameController : MonoBehaviour
         while (tutorialPanel != null) { yield return null; }
         SetInputLocked(false);
 
-        yield return new WaitForSeconds(timeBeforeFirstCorruption);
+        yield return new WaitForSeconds(1);
+
+        audioController.PlayVoiceOver();
+
+        yield return new WaitForSeconds(4);
 
         tutorialCorruption.ActivateCorruption();
         corruptionController.ExpandFromPoint(tutorialCorruption.transform.position, 60, 50);
@@ -96,7 +100,7 @@ public class GameController : MonoBehaviour
             }
             else if (!tutorialCorruption.IsActivated())
             {
-                corruptionController.Dissappear(3);
+                corruptionController.Dissappear(2);
                 break;
             }
 
@@ -122,7 +126,7 @@ public class GameController : MonoBehaviour
                 }
                 else if (!corruption.IsActivated())
                 {
-                    corruptionController.Dissappear(3);
+                    corruptionController.Dissappear(2);
                     break;
                 }
 
@@ -130,7 +134,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        Debug.Log("you win!");
+        Win();
     }
 
 
@@ -138,7 +142,13 @@ public class GameController : MonoBehaviour
     {
         SetInputLocked(true);
         Instantiate(gameOverPanelPrefab, popupParent);
-        Debug.Log("game over!");
+    }
+
+
+    private void Win()
+    {
+        SetInputLocked(true);
+        Instantiate(winPanelPrefab, popupParent);
     }
 
 
