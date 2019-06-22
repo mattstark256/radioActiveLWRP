@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         tutorialCorruption.ActivateCorruption();
-        corruptionController.ExpandFromPoint(tutorialCorruption.transform.position, 20, 30);
+        corruptionController.ExpandFromPoint(tutorialCorruption.transform.position, 60, 50);
 
 
         // Wait until game over or radio delivered
