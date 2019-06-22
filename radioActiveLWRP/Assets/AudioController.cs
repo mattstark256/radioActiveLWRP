@@ -43,15 +43,18 @@ public class AudioController : MonoBehaviour
 
         ambienceEvent = FMODUnity.RuntimeManager.CreateInstance(_ambienceSound);
         ambienceEvent.start();
-        if(_speakerObject != null)
+        
+
+
+    }
+    public void PlayVoiceOver()
+    {
+        if (_speakerObject != null)
         {
             FMODUnity.RuntimeManager.PlayOneShotAttached(voSound1, _speakerObject);
             StartCoroutine(WaitForVO());
         }
-
-
     }
-
 
     IEnumerator WaitForVO()
     {
