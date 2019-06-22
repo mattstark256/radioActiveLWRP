@@ -23,11 +23,18 @@ public class GameController : MonoBehaviour
     private List<Transform> shuffledCorruptionLocations = new List<Transform>();
 
     [SerializeField]
-    private Canvas canvas;
+    private Transform popupParent;
     [SerializeField]
-    private PopupWindow tutorialPanelPrefab;
+    private GameObject tutorialPanelPrefab;
     [SerializeField]
     private GameObject gameOverPanelPrefab;
+    [SerializeField]
+    private GameObject menuPrefab;
+    private GameObject menu;
+    private bool menuOpen = false;
+    private bool inputLockedBeforeMenuOpened;
+
+    private bool inputLocked = false;
 
 
     void Start()
@@ -35,16 +42,42 @@ public class GameController : MonoBehaviour
         ShuffleLists();
 
         StartCoroutine(GameCoroutine());
-    }   
+    }
+
+
+    private void Update()
+    {
+        if (menuOpen && menu == null)
+        {
+            SetInputLocked(inputLockedBeforeMenuOpened);
+            menuOpen = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (menu == null)
+            {
+                inputLockedBeforeMenuOpened = inputLocked;
+                SetInputLocked(true);
+                menu = Instantiate(menuPrefab, popupParent);
+                menuOpen = true;
+            }
+            else
+            {
+                SetInputLocked(inputLockedBeforeMenuOpened);
+                Destroy(menu);
+                menuOpen = false;
+            }
+        }
+    }
 
 
     private IEnumerator GameCoroutine()
     {
-        playerController.SetInputEnabled(false);
-        PopupWindow tutorialPanel = Instantiate(tutorialPanelPrefab, canvas.transform);
+        SetInputLocked(true);
+        GameObject tutorialPanel = Instantiate(tutorialPanelPrefab, popupParent);
         while (tutorialPanel != null) { yield return null; }
-        playerController.SetInputEnabled(true);
-        Cursor.lockState = CursorLockMode.Locked;
+        SetInputLocked(false);
 
         yield return new WaitForSeconds(timeBeforeFirstCorruption);
 
@@ -103,8 +136,8 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-        playerController.SetInputEnabled(false);
-        Instantiate(gameOverPanelPrefab, canvas.transform);
+        SetInputLocked(true);
+        Instantiate(gameOverPanelPrefab, popupParent);
         Debug.Log("game over!");
     }
 
@@ -124,5 +157,13 @@ public class GameController : MonoBehaviour
             shuffledCorruptionLocations.Add(corruptionLocations[j]);
             corruptionLocations.RemoveAt(j);
         }
+    }
+
+
+    private void SetInputLocked(bool locked)
+    {
+        inputLocked = locked;
+        Cursor.lockState = locked ? CursorLockMode.None : CursorLockMode.Locked;
+        playerController.SetInputEnabled(!locked);
     }
 }
