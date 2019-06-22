@@ -36,6 +36,10 @@ public class GameController : MonoBehaviour
 
     private bool inputLocked = false;
 
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _gameOverEvent;
+
 
     void Start()
     {
@@ -142,6 +146,7 @@ public class GameController : MonoBehaviour
     {
         SetInputLocked(true);
         Instantiate(gameOverPanelPrefab, popupParent);
+        FMODUnity.RuntimeManager.PlayOneShot(_gameOverEvent);
     }
 
 
