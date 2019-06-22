@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private CorruptionController corruptionController;
+    [SerializeField]
+    private PlayerController playerController;
 
     
     void Start()
@@ -34,7 +36,7 @@ public class GameController : MonoBehaviour
             if (corruptionController.GameIsOver())
             {
                 tutorialCorruption.MakeUnstoppable();
-                Debug.Log("game over!");
+                GameOver();
                 yield break;
             }
             else if (!tutorialCorruption.IsActivated())
@@ -45,6 +47,13 @@ public class GameController : MonoBehaviour
 
             yield return null;
         }
+    }
+
+
+    private void GameOver()
+    {
+        playerController.SetInputEnabled(false);
+        Debug.Log("game over!");
     }
 
 }

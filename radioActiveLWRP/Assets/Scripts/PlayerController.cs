@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     Vector3 moveDirection;
 
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -58,5 +59,11 @@ public class PlayerController : MonoBehaviour
         moveDirection.y = moveDirection.y - (playerData.gravity * Time.deltaTime);
 
         characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+
+    public void SetInputEnabled(bool enabled)
+    {
+        playerData.inputEnabled = enabled;
     }
 }
