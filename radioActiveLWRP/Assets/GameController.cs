@@ -5,6 +5,10 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField]
+    private float timeBeforeFirstCorruption = 5f;
+
+
+    [SerializeField]
     private CorruptionController corruptionController;
     [SerializeField]
     private PlayerController playerController;
@@ -42,7 +46,7 @@ public class GameController : MonoBehaviour
         playerController.SetInputEnabled(true);
         Cursor.lockState = CursorLockMode.Locked;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(timeBeforeFirstCorruption);
 
         tutorialCorruption.ActivateCorruption();
         corruptionController.ExpandFromPoint(tutorialCorruption.transform.position, 60, 50);
@@ -59,7 +63,7 @@ public class GameController : MonoBehaviour
             }
             else if (!tutorialCorruption.IsActivated())
             {
-                corruptionController.Dissappear(2);
+                corruptionController.Dissappear(3);
                 break;
             }
 
@@ -72,7 +76,7 @@ public class GameController : MonoBehaviour
             Corruption corruption = shuffledCorruptions[i];
             corruption.transform.position = shuffledCorruptionLocations[i].position;
             corruption.ActivateCorruption();
-            corruptionController.ExpandFromPoint(corruption.transform.position, 60, 50);
+            corruptionController.ExpandFromPoint(corruption.transform.position, 120, 100);
 
             // Wait until game over or radio delivered
             while (true)
@@ -85,7 +89,7 @@ public class GameController : MonoBehaviour
                 }
                 else if (!corruption.IsActivated())
                 {
-                    corruptionController.Dissappear(2);
+                    corruptionController.Dissappear(3);
                     break;
                 }
 
