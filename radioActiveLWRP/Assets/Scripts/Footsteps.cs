@@ -10,6 +10,7 @@ public class Footsteps : MonoBehaviour
     private string InputFootsteps;
     FMOD.Studio.EventInstance FootstepsEvent;
     FMOD.Studio.ParameterInstance CorruptedParameter;
+    FMOD.Studio.ParameterInstance LandParameter;
 
     [FMODUnity.EventRef]
     [SerializeField]
@@ -22,12 +23,12 @@ public class Footsteps : MonoBehaviour
     bool playerismoving;
     [SerializeField]
     private float walkingSpeed;
-    private float WoodValue;
-    private float MetalValue;
-    private float GrassValue;
+    private float CorruptionValue;
     private bool playerisgrounded;
 
     private bool _firstFrameLand = true;
+
+    [SerializeField] private GameObject _corruptionController;
 
     void Start()
     {
@@ -35,10 +36,14 @@ public class Footsteps : MonoBehaviour
         InvokeRepeating("CallFootsteps", 0, walkingSpeed);
         _controller = GetComponent<CharacterController>();
         _landInstance = FMODUnity.RuntimeManager.CreateInstance(_landEvent);
+        FootstepsEvent.getParameter("Corruption", out CorruptedParameter);
+        _landInstance.getParameter("Corruption", out LandParameter);
     }
 
     void Update()
     {
+        CorruptedParameter.setValue(CorruptionValue);
+        LandParameter.setValue(CorruptionValue);
         playerisgrounded = _controller.isGrounded;   
         if (Input.GetAxis("Vertical") >= 0.01f || Input.GetAxis("Horizontal") >= 0.01f || Input.GetAxis("Vertical") <= -0.01f || Input.GetAxis("Horizontal") <= -0.01f)
         {
@@ -68,10 +73,19 @@ public class Footsteps : MonoBehaviour
             if (_controller.collisionFlags == CollisionFlags.Below)
             {
                 _landInstance.start();
-                Debug.Log("Play landing");
+                //Debug.Log("Play landing");
                 _firstFrameLand = false;
             }
         }
+        if(_corruptionController.GetComponent<CorruptionController>().PointIsInsideCorruption(this.gameObject.transform.position) == true)
+        {
+            CorruptionValue = 1.0f;
+        }
+        else
+        {
+            CorruptionValue = 0.0f;
+        }
+        
 
     }
 
