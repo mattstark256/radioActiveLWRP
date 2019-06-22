@@ -5,25 +5,36 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField]
+    private CorruptionController corruptionController;
+    [SerializeField]
+    private PlayerController playerController;
+    [SerializeField]
     private Corruption tutorialCorruption;
     [SerializeField]
     private Corruption corruptions;
 
     [SerializeField]
-    private CorruptionController corruptionController;
+    private Canvas canvas;
     [SerializeField]
-    private PlayerController playerController;
+    private PopupWindow tutorialPanelPrefab;
+    [SerializeField]
+    private GameObject gameOverPanelPrefab;
 
-    
+
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         StartCoroutine(GameCoroutine());
-    }
-    
+    }   
+
 
     private IEnumerator GameCoroutine()
     {
+        playerController.SetInputEnabled(false);
+        PopupWindow tutorialPanel = Instantiate(tutorialPanelPrefab, canvas.transform);
+        while (tutorialPanel != null) { yield return null; }
+        playerController.SetInputEnabled(true);
+        Cursor.lockState = CursorLockMode.Locked;
+
         yield return new WaitForSeconds(1);
 
         tutorialCorruption.ActivateCorruption();
@@ -31,7 +42,7 @@ public class GameController : MonoBehaviour
 
 
         // Wait until game over or radio delivered
-        while(true)
+        while (true)
         {
             if (corruptionController.GameIsOver())
             {
@@ -53,6 +64,7 @@ public class GameController : MonoBehaviour
     private void GameOver()
     {
         playerController.SetInputEnabled(false);
+        Instantiate(gameOverPanelPrefab, canvas.transform);
         Debug.Log("game over!");
     }
 
