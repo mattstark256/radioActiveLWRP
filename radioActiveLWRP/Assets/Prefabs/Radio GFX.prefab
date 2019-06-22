@@ -14347,7 +14347,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1791679975799359328}
-  - component: {fileID: 1745711632627337186}
   - component: {fileID: 7235271090723605013}
   m_Layer: 0
   m_Name: Radio GFX
@@ -14375,19 +14374,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1745711632627337186
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8750619394182930103}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.5, z: 0.84}
-  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!23 &7235271090723605013
 MeshRenderer:
   m_ObjectHideFlags: 0

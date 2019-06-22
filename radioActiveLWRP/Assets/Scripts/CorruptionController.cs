@@ -67,7 +67,9 @@ public class CorruptionController : MonoBehaviour
             f += Time.deltaTime / durationUntilGameover;
             if (f > 1) f = 1;
 
-            SetRadius(Mathf.Lerp(0, radiusAtGameOver, f));
+            float f2 = f / (1 - f) - f;
+
+            SetRadius(radiusAtGameOver * (f + f2 * 0.1f));
 
             yield return null;
         }

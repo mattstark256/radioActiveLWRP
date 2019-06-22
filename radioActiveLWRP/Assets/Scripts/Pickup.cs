@@ -12,6 +12,10 @@ public class Pickup : MonoBehaviour, IInteractable
     private string _placeEvent;
     FMOD.Studio.EventInstance _placeInstance;
 
+    private Interactor interactor;
+    public bool IsBeingCarried() { return interactor != null; }
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -23,28 +27,32 @@ public class Pickup : MonoBehaviour, IInteractable
         if(transform.parent == null)
             AttachToInteractor(interactor);
         else
-            DetachFromInteractor(interactor);
+            DetachFromInteractor();
     }
 
-    void AttachToInteractor(Interactor interactor)
+    void AttachToInteractor(Interactor _interactor)
     {
+        interactor = _interactor;
         rb.isKinematic = true;
         transform.parent = interactor.transform;
         transform.SetPositionAndRotation(interactor.transform.position, interactor.transform.rotation);
         FMODUnity.RuntimeManager.PlayOneShot(_grabEvent);
     }
 
-    void DetachFromInteractor(Interactor interactor)
+    public void DetachFromInteractor()
     {
         rb.isKinematic = false;
         transform.parent = null;
-        transform.position = interactor.transform.parent.TransformPoint(Vector3.forward * dropDistance);
-        transform.rotation = Quaternion.identity;
+        //transform.position = interactor.transform.parent.TransformPoint(Vector3.forward * dropDistance);
+        //transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         interactor.OnInteractionFinished();
+        interactor = null;
     }
 
     void OnCollisionEnter(Collision other)
     {
             FMODUnity.RuntimeManager.PlayOneShotAttached(_placeEvent, this.gameObject);
     }
+
 }

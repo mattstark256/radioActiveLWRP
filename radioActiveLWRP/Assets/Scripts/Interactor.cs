@@ -1,35 +1,47 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+
 
 public class Interactor : MonoBehaviour
 {
-    bool isInteracting;
-    IInteractable interactable;
+    private List<IInteractable> nearbyInteractables = new List<IInteractable>();
+    IInteractable interactingInteractable;
 
     public void OnInteractionFinished()
     {
-        interactable = null;
-        isInteracting = false;
+        interactingInteractable = null;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        IInteractable otherInteractable = other.GetComponent<IInteractable>();
-        if(otherInteractable != null)
-            interactable = otherInteractable;
+        IInteractable interactable = other.GetComponent<IInteractable>();
+        if (interactable != null)
+        { nearbyInteractables.Add(interactable); }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(!isInteracting && other.GetComponent<IInteractable>() != null)
-            interactable = null;
+        IInteractable interactable = other.GetComponent<IInteractable>();
+        if (interactable != null &&
+            nearbyInteractables.Contains(interactable))
+        { nearbyInteractables.Remove(interactable); }
     }
 
     void Update()
     {
-        if(Input.GetButtonDown("Interact") && interactable != null)
+        if (Input.GetButtonDown("Interact"))
         {
-            isInteracting = true;
-            interactable.Interact(this);
+            if (interactingInteractable != null)
+            {
+                interactingInteractable.Interact(this);
+            }
+            else if (nearbyInteractables.Count>0)
+            {
+                nearbyInteractables[0].Interact(this);
+                interactingInteractable = nearbyInteractables[0];
+            }
         }
     }
+
+
 }

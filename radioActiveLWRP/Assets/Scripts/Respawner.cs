@@ -11,6 +11,7 @@ public class Respawner : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+
         if(other.GetComponent<CharacterController>() != null || other.GetComponent<Rigidbody>() != null)
         {
             TeleportToNearestRespawnLocation(other.gameObject);
@@ -22,13 +23,13 @@ public class Respawner : MonoBehaviour
         Vector3 closest = respawnLocations[0].transform.position;
         Vector3 objectPosition = objectToTeleport.transform.position;
 
-        for(int i = 0; i < respawnLocations.Length; i++)
+        for (int i = 0; i < respawnLocations.Length; i++)
         {
             Vector3 current = respawnLocations[i].transform.position;
             float distanceToClosest = Vector3.Distance(closest, objectPosition);
             float distanceToCurrent = Vector3.Distance(current, objectPosition);
 
-            if(distanceToCurrent < distanceToClosest)
+            if (distanceToCurrent < distanceToClosest)
                 closest = current;
         }
 
