@@ -330,7 +330,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 600}
+  m_SizeDelta: {x: 1000, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3047527464844355060
 CanvasRenderer:
@@ -397,10 +397,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 60
     m_Right: 60
-    m_Top: 0
-    m_Bottom: 20
+    m_Top: 20
+    m_Bottom: 40
   m_ChildAlignment: 4
-  m_Spacing: 20
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -517,7 +517,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 0}
+  m_SizeDelta: {x: 850, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7981651482815225962
 CanvasRenderer:
@@ -554,8 +554,12 @@ MonoBehaviour:
     THE CORRUPTION''S SOUND AND TAKE IT TO THE CORRUPTION
 
 
-    USE WASD TO MOVE,
-    SPACE TO JUMP AND LEFT MOUSE TO PICK UP AND DROP OBJECTS'
+    USE WASD TO MOVE
+
+    USE
+    SPACE TO JUMP
+
+    USE LEFT MOUSE TO PICK UP OBJECTS'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 372a851e9ab89364689312a34bc670f2, type: 2}
   m_sharedMaterial: {fileID: 5315060437326415013, guid: 372a851e9ab89364689312a34bc670f2,
@@ -591,7 +595,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 514
+  m_textAlignment: 513
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -625,10 +629,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 6549480814345948838}
-    characterCount: 198
+    characterCount: 192
     spriteCount: 0
-    spaceCount: 38
-    wordCount: 37
+    spaceCount: 37
+    wordCount: 36
     linkCount: 0
     lineCount: 9
     pageCount: 1
