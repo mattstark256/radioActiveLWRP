@@ -5,9 +5,17 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    enum MoveMode
+    {
+        Speed,
+        Time
+    }
+
     [SerializeField] float restTime = 1.0f;
-    [SerializeField] float speed = 1.0f;
+    [SerializeField] float moveSpeed = 1.0f;
+    [SerializeField] float moveTime = 5.0f;
     [SerializeField] float tolerance = 0.01f;
+    [SerializeField] MoveMode moveMode;
 
     bool hasReachedTarget;
     bool isActive;
@@ -67,14 +75,22 @@ public class MovingPlatform : MonoBehaviour
             }
             else
             {
-                hasReachedTarget = MoveTowardsTarget();
+                switch(moveMode)
+                {
+                    case MoveMode.Speed:
+                        hasReachedTarget = MoveBySpeed();
+                        break;
+                    case MoveMode.Time:
+                        hasReachedTarget = MoveByTime();
+                        break;
+                }
             }
         }
     }
  
-    bool MoveTowardsTarget()
+    bool MoveBySpeed()
     {
-        float distanceCovered = (Time.time - startTime) * speed;
+        float distanceCovered = (Time.time - startTime) * moveSpeed;
         if(distanceCovered == 0.0f)
             return false;
 
@@ -83,6 +99,19 @@ public class MovingPlatform : MonoBehaviour
         transform.rotation = Quaternion.Lerp(previousTarget.rotation, currentTarget.rotation, distanceFraction);
 
         return distanceFraction > 1.0f - tolerance;
+    }   
+ 
+    bool MoveByTime()
+    {
+        float elapsedTime = (Time.time - startTime);
+        if(elapsedTime == 0.0f)
+            return false;
+
+        float timeFraction = elapsedTime / moveTime;
+        transform.position = Vector3.Lerp(previousTarget.position, currentTarget.position, timeFraction);
+        transform.rotation = Quaternion.Lerp(previousTarget.rotation, currentTarget.rotation, timeFraction);
+
+        return timeFraction > 1.0f - tolerance;
     }   
 
     void GetNextTarget()
