@@ -100,7 +100,7 @@ public class Corruption : MonoBehaviour
             f += Time.deltaTime / duration;
             if (f > 1) { f = 1; }
 
-            Debug.Log(f);
+            //Debug.Log(f);
             glow.intensity = Mathf.SmoothStep(initialIntensity, finalIntensity, f);
 
             yield return null;
