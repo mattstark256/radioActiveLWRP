@@ -52,7 +52,7 @@ public class Radio : MonoBehaviour
     {
         nearbyCorruption.DeactivateCorruption();
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
         GetComponent<Respawnable>().Respawn();
     }
 }
