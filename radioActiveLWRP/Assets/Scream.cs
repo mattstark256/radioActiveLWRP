@@ -11,7 +11,10 @@ public class Scream : MonoBehaviour
 
     private float timeSinceLastScream = 0;
 
-    
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _screamEvent;
+
     void Update()
     {
         timeSinceLastScream += Time.deltaTime;
@@ -25,6 +28,6 @@ public class Scream : MonoBehaviour
 
     private void DoScream()
     {
-        Debug.Log("AAAAAAAAAAAAAAAAAA");
+        FMODUnity.RuntimeManager.PlayOneShot(_screamEvent);
     }
 }
