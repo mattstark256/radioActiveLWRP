@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grabEvent: event:/playGrab
   _placeEvent: event:/playPlace
+  _dropEvent: event:/playDrop
 --- !u!114 &-9091771769091511134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,3 +138,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd09a26459e766348b98188f97d4b117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _respawnEvent: 

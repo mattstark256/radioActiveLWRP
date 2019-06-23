@@ -89,6 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grabEvent: event:/playGrab
   _placeEvent: event:/playPlace
+  _dropEvent: event:/playDrop
 --- !u!114 &-9091771769091511134
 MonoBehaviour:
   m_ObjectHideFlags: 0
