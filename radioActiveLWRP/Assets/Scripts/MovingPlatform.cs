@@ -1,6 +1,6 @@
 ﻿using NaughtyAttributes;
 using System.Collections;
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
@@ -24,7 +24,7 @@ public class MovingPlatform : MonoBehaviour
     float totalDistance;
     Transform currentTarget;
     Transform previousTarget;
-    Transform[] targets;
+    List<Transform> targets = new List<Transform>();
 
     [Button]
     public void Activate()
@@ -50,7 +50,7 @@ public class MovingPlatform : MonoBehaviour
     void Awake()
     {
         GameObject targetParent = new GameObject(gameObject.name + " targets");
-        targets = GetComponentsInChildren<Transform>();
+        targets.AddRange(GetComponentsInChildren<Transform>());
         targets[0] = new GameObject("StartTarget").transform;
         targets[0].position = transform.position;
         targets[0].rotation = transform.rotation;
@@ -118,8 +118,8 @@ public class MovingPlatform : MonoBehaviour
     {
         hasReachedTarget = false;
         previousTarget = currentTarget;
-        int currentIndex = ArrayUtility.IndexOf(targets, currentTarget);
-        currentIndex = currentIndex < targets.Length - 1 ? currentIndex + 1 : 0;
+        int currentIndex = targets.IndexOf(currentTarget);
+        currentIndex = currentIndex < targets.Count - 1 ? currentIndex + 1 : 0;
         currentTarget = targets[currentIndex];
         totalDistance = Vector3.Distance(currentTarget.position, previousTarget.position);
     }
