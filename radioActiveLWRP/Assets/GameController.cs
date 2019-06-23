@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private List<Transform> corruptionLocations;
     private List<Transform> shuffledCorruptionLocations = new List<Transform>();
+    [SerializeField]
+    private MovingPlatform tutorialBridge;
 
     [SerializeField]
     private Transform popupParent;
@@ -112,12 +114,16 @@ public class GameController : MonoBehaviour
         }
 
 
+        // Make bridge appear
+        tutorialBridge.GoToNextPosition();
+
+
         for (int i = 0; i < shuffledCorruptions.Count; i++)
         {
             Corruption corruption = shuffledCorruptions[i];
             corruption.transform.position = shuffledCorruptionLocations[i].position;
             corruption.ActivateCorruption();
-            corruptionController.ExpandFromPoint(corruption.transform.position, 120, 100);
+            corruptionController.ExpandFromPoint(corruption.transform.position, 120, 80);
 
             // Wait until game over or radio delivered
             while (true)
