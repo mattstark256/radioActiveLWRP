@@ -26,6 +26,10 @@ public class GameController : MonoBehaviour
     private Respawnable[] radioRespawnables;
 
     [SerializeField]
+    private float[] corruptionDurations;
+
+
+    [SerializeField]
     private Transform popupParent;
     [SerializeField]
     private GameObject tutorialPanelPrefab;
@@ -126,7 +130,7 @@ public class GameController : MonoBehaviour
             Corruption corruption = shuffledCorruptions[i];
             corruption.transform.position = shuffledCorruptionLocations[i].position;
             corruption.ActivateCorruption();
-            corruptionController.ExpandFromPoint(corruption.transform.position, 120, 80);
+            corruptionController.ExpandFromPoint(corruption.transform.position, corruptionDurations[i], 80);
 
             // Wait until game over or radio delivered
             while (true)
