@@ -43,16 +43,7 @@ public class Radio : MonoBehaviour
             nearbyCorruption.IsActivated() &&
             nearbyCorruption.GetRadioTag()==radioTag)
         {
-            StartCoroutine(DefeatCorruption());
+            nearbyCorruption.DeactivateCorruption();
         }
-    }
-
-
-    private IEnumerator DefeatCorruption()
-    {
-        nearbyCorruption.DeactivateCorruption();
-
-        yield return new WaitForSeconds(5);
-        GetComponent<Respawnable>().Respawn();
     }
 }

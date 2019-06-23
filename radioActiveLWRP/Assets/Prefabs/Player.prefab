@@ -388,3 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87a76501668e994da5b4cb7b0f25234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screamHeight: 5
+  minimumScreamInterval: 5
+  _screamEvent: event:/playFallingVO

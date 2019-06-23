@@ -9,6 +9,7 @@ public class Corruption : MonoBehaviour
     public string GetRadioTag() { return radioTag; }
 
     private ParticleSystem[] particleSystems;
+    private Light glow;
 
     private bool activated= false;
     public bool IsActivated() { return activated; }
@@ -35,20 +36,26 @@ public class Corruption : MonoBehaviour
     private void Awake()
     {
         particleSystems = GetComponentsInChildren<ParticleSystem>();
+        glow = GetComponentInChildren<Light>();
 
         foreach (ParticleSystem particleSystem in particleSystems)
         {
             particleSystem.Stop();
         }
+        glow.intensity = 0;
+
         _corruptionEvent = FMODUnity.RuntimeManager.CreateInstance(_corruptionMusic);
         _corruptionEvent.start();
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(_corruptionEvent, this.gameObject.transform, GetComponent<Rigidbody>());
         _corruptionEvent.getParameter("Volume", out volumeParameter);
     }
+
+
     void Update()
     {
         volumeParameter.setValue(_volumeValue);
     }
+
 
     public void ActivateCorruption()
     {
@@ -57,6 +64,7 @@ public class Corruption : MonoBehaviour
         {
             particleSystem.Play();
         }
+        StartCoroutine(ChangeLightIntensity(50, 1));
         FMODUnity.RuntimeManager.PlayOneShotAttached(_spawnEvent, this.gameObject);
         _volumeValue = 1.0f;
     }
@@ -70,6 +78,7 @@ public class Corruption : MonoBehaviour
         {
             particleSystem.Stop();
         }
+        StartCoroutine( ChangeLightIntensity(0, 2));
         FMODUnity.RuntimeManager.PlayOneShotAttached(_clearEvent, this.gameObject);
         _volumeValue = 0.0f;
     }
@@ -78,5 +87,23 @@ public class Corruption : MonoBehaviour
     public void MakeUnstoppable()
     {
         isUnstoppable = true;
+    }
+
+
+    private IEnumerator ChangeLightIntensity(float finalIntensity, float duration)
+    {
+        float initialIntensity = glow.intensity;
+        float f = 0;
+
+        while (f < 1)
+        {
+            f += Time.deltaTime / duration;
+            if (f > 1) { f = 1; }
+
+            Debug.Log(f);
+            glow.intensity = Mathf.SmoothStep(initialIntensity, finalIntensity, f);
+
+            yield return null;
+        }
     }
 }

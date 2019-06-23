@@ -168,7 +168,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.25
-  m_Text: You win!
+  m_Text: The corruption has been prevented from spreading across the world. You
+    win! Well done!
 --- !u!1 &8857607741663352336
 GameObject:
   m_ObjectHideFlags: 0

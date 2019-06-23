@@ -23,6 +23,9 @@ public class GameController : MonoBehaviour
     private MovingPlatform tutorialBridge;
 
     [SerializeField]
+    private Respawnable[] radioRespawnables;
+
+    [SerializeField]
     private Transform popupParent;
     [SerializeField]
     private GameObject tutorialPanelPrefab;
@@ -137,6 +140,7 @@ public class GameController : MonoBehaviour
                 else if (!corruption.IsActivated())
                 {
                     corruptionController.Dissappear(2);
+                    StartCoroutine(ReturnAllRadios());
                     break;
                 }
 
@@ -187,6 +191,16 @@ public class GameController : MonoBehaviour
     {
         inputLocked = locked;
         Cursor.lockState = locked ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = locked;
         playerController.SetInputEnabled(!locked);
+    }
+
+
+    private IEnumerator ReturnAllRadios()
+    {
+        yield return new WaitForSeconds(7);
+
+        foreach(Respawnable respawnable in radioRespawnables)
+        { respawnable.Respawn(); }
     }
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _moveSound;
     enum MoveMode
     {
         Speed,
@@ -32,6 +35,7 @@ public class MovingPlatform : MonoBehaviour
         isActive = true;
         GetNextTarget();
         startTime = Time.time;
+        FMODUnity.RuntimeManager.PlayOneShotAttached(_moveSound, this.gameObject);
     }
 
     [Button]
