@@ -11,6 +11,9 @@ public class Pickup : MonoBehaviour, IInteractable
     [SerializeField]
     private string _placeEvent;
     FMOD.Studio.EventInstance _placeInstance;
+    [FMODUnity.EventRef]
+    [SerializeField]
+    private string _dropEvent;
 
     private Interactor interactor;
     public bool IsBeingCarried() { return interactor != null; }
@@ -48,6 +51,7 @@ public class Pickup : MonoBehaviour, IInteractable
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         interactor.OnInteractionFinished();
         interactor = null;
+        FMODUnity.RuntimeManager.PlayOneShot(_dropEvent);
     }
 
     void OnCollisionEnter(Collision other)
